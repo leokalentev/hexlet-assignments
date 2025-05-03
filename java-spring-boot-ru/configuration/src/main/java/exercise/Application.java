@@ -26,7 +26,13 @@ public class Application {
 
     @GetMapping("/admins")
     public List<String> showAdmins() {
-        var result = admins.getAdmins().stream().sorted().toList();
+        var result = admins.getAdmins().stream()
+                .map(email -> {
+                    String username = email.split("@")[0];
+                    return username.substring(0, 1).toUpperCase() + username.substring(1).toLowerCase();
+                })
+                .sorted()
+                .toList();
         return result;
     }
     // END
