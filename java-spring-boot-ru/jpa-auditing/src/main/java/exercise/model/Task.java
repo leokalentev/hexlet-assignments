@@ -1,9 +1,9 @@
 package exercise.model;
 
-import jakarta.persistence.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,6 +30,6 @@ public class Task {
     private LocalDate createdAt;
 
     @LastModifiedBy
-    private LocalDate updateAt;
+    private LocalDate updatedAt;
 }
 // END
