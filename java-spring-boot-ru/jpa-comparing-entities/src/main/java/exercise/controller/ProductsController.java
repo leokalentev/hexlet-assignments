@@ -35,9 +35,12 @@ public class ProductsController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Product create(@RequestBody Product product) {
-        boolean res = productRepository.equals(product);
+        var res = productRepository.findAll()
+                .stream()
+                .filter(p -> p.equals(product))
+                .findFirst();
 
-        if (res) {
+        if (res.isPresent()) {
             throw new ResourceAlreadyExistsException("Product already exists");
         }
 
