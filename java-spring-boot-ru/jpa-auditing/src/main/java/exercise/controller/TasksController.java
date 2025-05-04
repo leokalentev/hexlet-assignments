@@ -53,8 +53,6 @@ public class TasksController {
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         result.setTitle(task.getTitle());
         result.setDescription(task.getDescription());
-        result.setUpdatedAt(task.getUpdatedAt());
-        result.setCreatedAt(task.getCreatedAt());
 
         taskRepository.save(result);
         return result;
