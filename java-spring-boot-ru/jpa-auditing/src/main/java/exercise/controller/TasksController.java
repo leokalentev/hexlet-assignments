@@ -56,6 +56,7 @@ public class TasksController {
         result.setUpdatedAt(task.getUpdatedAt());
         result.setCreatedAt(task.getCreatedAt());
 
+        taskRepository.save(result);
         return result;
     }
     // END
