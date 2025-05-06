@@ -47,17 +47,18 @@ public class ProductsController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDTO post(@RequestBody ProductCreateDTO productCreateDTO) {
-        productRepository.save(productMapper.create(productCreateDTO));
-        return productMapper.map(productCreateDTO);
+        var product = productMapper.create(productCreateDTO);
+        var savedProduct = productRepository.save(product);
+        return productMapper.map(savedProduct);
     }
 
     @PutMapping(path = "/{id}")
     public ProductDTO update(@PathVariable Long id, @RequestBody ProductUpdateDTO productUpdateDTO) {
         var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found"));
-        var res = productMapper.update(productUpdateDTO, product);
-        productRepository.save(res);
-        return productMapper.map(res);
+        productMapper.update(productUpdateDTO, product);
+        var updatedProduct = productRepository.save(product);
+        return productMapper.map(updatedProduct);
     }
     // END
 }
