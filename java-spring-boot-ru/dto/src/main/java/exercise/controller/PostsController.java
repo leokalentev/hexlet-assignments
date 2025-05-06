@@ -55,7 +55,7 @@ public class PostsController {
     @GetMapping(path = "/{id}")
     public PostDTO show(@PathVariable Long id) {
         var post = postRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + " not found"));
         var res = toDTO(post);
 
         return res;
