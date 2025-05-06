@@ -1,8 +1,6 @@
 package exercise.dto;
 
 import java.util.List;
-
-import exercise.model.Comment;
 import lombok.Getter;
 import lombok.Setter;
 
