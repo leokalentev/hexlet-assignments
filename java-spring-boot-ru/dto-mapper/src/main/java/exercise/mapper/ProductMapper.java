@@ -6,10 +6,7 @@ import exercise.dto.ProductCreateDTO;
 import exercise.dto.ProductDTO;
 import exercise.dto.ProductUpdateDTO;
 import exercise.model.Product;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
@@ -19,10 +16,17 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
         unmappedTargetPolicy = IGNORE
 )
 public abstract class ProductMapper {
-    public abstract ProductDTO map(Product product);
-    public abstract Product create(ProductCreateDTO productCreateDTO);
-    public abstract ProductDTO map(ProductCreateDTO productCreateDTO);
-    public abstract Product update(ProductUpdateDTO productUpdateDTO, @MappingTarget Product product);
 
+    @Mapping(source = "name", target = "title")  // Преобразуем поле name в title
+    public abstract ProductDTO map(Product product);
+
+    @Mapping(target = "id", ignore = true)  // id не устанавливаем вручную
+    public abstract Product create(ProductCreateDTO productCreateDTO);
+
+    public abstract ProductDTO map(ProductCreateDTO productCreateDTO);
+
+    @Mapping(target = "id", ignore = true)  // id игнорируем при обновлении
+    public abstract Product update(ProductUpdateDTO productUpdateDTO, @MappingTarget Product product);
 }
+
 // END
