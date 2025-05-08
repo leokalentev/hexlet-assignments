@@ -17,6 +17,8 @@ import exercise.exception.ResourceNotFoundException;
 import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
@@ -31,11 +33,11 @@ public class ProductsController {
     private ProductSpecification productSpecification;
 
     @GetMapping
-    public Page<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "0") int page) {
+    public List<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "0") int page) {
         var spec = productSpecification.build(params);
         var pageable = PageRequest.of(page, 10);
         var products = productRepository.findAll(spec, pageable);
-        return products.map(productMapper::map);
+        return products.map(productMapper::map).getContent();
     }
     // END
 
