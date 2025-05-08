@@ -6,6 +6,7 @@ import exercise.dto.TaskCreateDTO;
 import exercise.dto.TaskDTO;
 import exercise.dto.TaskUpdateDTO;
 import exercise.mapper.TaskMapper;
+import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +32,9 @@ public class TasksController {
 
     @Autowired
     private TaskMapper taskMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     public List<TaskDTO> index() {
@@ -62,6 +66,11 @@ public class TasksController {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
         taskMapper.update(taskUpdateDTO, task);
+
+        var user = userRepository.findById(taskUpdateDTO.getAssigneeId())
+                        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        task.setAssignee(user);
+
         taskRepository.save(task);
         var taskDTO = taskMapper.map(task);
         return taskDTO;
