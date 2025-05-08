@@ -6,17 +6,12 @@ import exercise.dto.ProductDTO;
 import exercise.dto.ProductParamsDTO;
 import exercise.dto.ProductUpdateDTO;
 import exercise.mapper.ProductMapper;
+import exercise.specification.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import exercise.exception.ResourceNotFoundException;
 import exercise.repository.ProductRepository;
@@ -32,7 +27,16 @@ public class ProductsController {
     private ProductMapper productMapper;
 
     // BEGIN
-    
+    @Autowired
+    private ProductSpecification productSpecification;
+
+    @GetMapping
+    public Page<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "0") int page) {
+        var spec = productSpecification.build(params);
+        var pageable = PageRequest.of(page, 10);
+        var products = productRepository.findAll(spec, pageable);
+        return products.map(productMapper::map);
+    }
     // END
 
     @PostMapping("")
