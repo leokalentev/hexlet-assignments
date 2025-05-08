@@ -8,7 +8,10 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -35,16 +38,19 @@ public class Guest {
     private String name;
 
     @Email
+    @Column(unique = true)
     private String email;
 
     @Pattern(regexp = "^\\+\\d{11,13}")
+    @Column(unique = true)
     private String phoneNumber;
 
     @Pattern(regexp = "\\d{4}")
     private String clubCard;
 
     @FutureOrPresent
-    private LocalDate CardValidUntil;
+    private LocalDate cardValidUntil;
+
     // END
 
     @CreatedDate

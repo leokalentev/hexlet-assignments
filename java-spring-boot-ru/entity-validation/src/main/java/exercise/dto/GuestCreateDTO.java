@@ -26,6 +26,6 @@ public class GuestCreateDTO {
     private String clubCard;
 
     @FutureOrPresent
-    private LocalDate CardValidUntil;
+    private LocalDate cardValidUntil;
 }
 // END
