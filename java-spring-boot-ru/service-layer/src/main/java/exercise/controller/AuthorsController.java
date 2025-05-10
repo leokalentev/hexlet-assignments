@@ -52,6 +52,7 @@ public class AuthorsController {
     }
 
     @DeleteMapping(path = {"/{id}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         authorService.delete(id);
     }
