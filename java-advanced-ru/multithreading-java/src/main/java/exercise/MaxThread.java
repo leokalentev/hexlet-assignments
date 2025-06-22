@@ -15,10 +15,10 @@ public class MaxThread extends Thread {
     @Override
     public void run() {
         LOGGER.info("Thread " + Thread.currentThread().getName() + " started");
-        for (int i = 0; i < numbers.length; i++) {
-            maxNum = -100000;
-            if (maxNum < numbers[i]) {
-                maxNum = numbers[i];
+        maxNum = -10000;
+        for (int number : numbers) {
+            if (number > maxNum) {
+                maxNum = number;
             }
         }
         LOGGER.info("Thread " + Thread.currentThread().getName() + " finished");

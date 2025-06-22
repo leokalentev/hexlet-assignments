@@ -15,10 +15,10 @@ public class MinThread extends Thread {
     @Override
     public void run() {
         LOGGER.info("Thread " + Thread.currentThread().getName() + " started");
-        for (int i = 0; i < numbers.length; i++) {
-            minNum = 100000;
-            if (minNum > numbers[i]) {
-                minNum = numbers[i];
+        minNum = 10000;
+        for (int number : numbers) {
+            if (number < minNum) {
+                minNum = number;
             }
         }
         LOGGER.info("Thread " + Thread.currentThread().getName() + " finished");
