@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 // BEGIN
 public class MaxThread extends Thread {
-    private static Logger LOGGER = Logger.getLogger(MinThread.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MinThread.class.getName());
     private int[] numbers;
     private int maxNum;
 
