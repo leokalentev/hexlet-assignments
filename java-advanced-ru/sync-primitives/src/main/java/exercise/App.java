@@ -19,7 +19,7 @@ class App {
             e.printStackTrace();
         }
 
-        System.out.println(safetyList.size());
+        System.out.println(safetyList.getSize());
         // END
     }
 }

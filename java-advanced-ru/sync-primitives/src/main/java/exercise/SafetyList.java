@@ -19,7 +19,7 @@ class SafetyList {
         return safetyList.get(index);
     }
 
-    public int size() {
+    public int getSize() {
         return safetyList.size();
     }
     // END
